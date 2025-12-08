@@ -61,7 +61,7 @@ let enhance = async () => {
         throw new Error("IPS is empty or invalid.");
     }
     let enhanceTag = "highlight";
-    let listOfCategoriesToSearch = [{"code":"grav-1","system":"http://gravitate-health.eu/codes"}]; //what to look in extensions -made up code because there is none
+    let listOfCategoriesToSearch = [{ "code": "grav-1", "system": "http://gravitate-health.eu/codes" }]; //what to look in extensions -made up code because there is none
 
     // Highlight <QT prolongation risk> IF MedicationRequest.medication == [Citalopram] 
     // AND Observation.code == "K+" (loinc 2823-3) AND Observation.value < 3.5 mmol/L
@@ -154,7 +154,7 @@ let enhance = async () => {
                             (coding) => {
                                 console.log("Extension: " + element.extension[0].valueString + ":" + coding.code)
                                 // Check if the code is in the list of categories to search
-                                    if (listOfCategoriesToSearch.some(item => item.code === coding.code && item.system === coding.system)) {
+                                if (listOfCategoriesToSearch.some(item => item.code === coding.code && item.system === coding.system)) {
                                     // Check if the category is already in the list of categories
                                     categories.push(element.extension[0].valueString);
                                 }
@@ -184,7 +184,24 @@ let enhance = async () => {
 
 };
 
+
+function getReport(lang) {
+    console.log("Generating report in language:", lang);
+    return { message: getExplanation(lang), status: "" };
+
+
+}
+
+// --- Get user-facing report sentence in the selected language ---
+function getExplanation(lang) {
+    console.log("Generating explanation in language:", lang);
+    return "";
+}
+
+// --- Exported API ---
 return {
     enhance: enhance,
     getSpecification: getSpecification,
+    explanation: (language) => getExplanation(language || lang),
+    report: (language) => getReport(language || lang),
 };
