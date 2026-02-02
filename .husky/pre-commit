@@ -1,6 +1,6 @@
 # Encode JS to base64 and update JSON
 
-./scripts/update-lens-json.sh
+lens-tool-bundler bundle qt-prolongation-lens.js -u
 
 # Run tests
 
